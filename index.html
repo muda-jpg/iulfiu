@@ -1,18 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<голова>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
- <title>My Website</title>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dynamic Cat Image Grid</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  button {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
- <h1>интересный факт корень из ста равно 10 </h1>
- <div>
-    <img src="https://cataas.com/cat" alt="">
-    <img src="https://cataas.com/cat" alt="">
-    <img src="https://cataas.com/cat" alt="">
-    <img src="https://cataas.com/cat" alt="">
- </div>
- 
+<h1>Dynamic Cat Image Grid</h1>
+<button id="loadImages">Load New Images</button>
+<div class="grid" id="imageGrid"></div>
+
+<script>
+  const numberOfImages = 8; // Number of images to display
+  const imageGrid = document.getElementById('imageGrid');
+  const loadButton = document.getElementById('loadImages');
+
+  // Function to fetch and display images
+  function loadImages() {
+    imageGrid.innerHTML = ''; // Clear existing images
+    for (let i = 0; i < numberOfImages; i++) {
+      const img = document.createElement('img');
+      // Append a timestamp to prevent caching
+      img.src = `https://cataas.com/cat?timestamp=${new Date().getTime() + i}`;
+      img.alt = 'Cute Cat';
+      imageGrid.appendChild(img);
+    }
+  }
+
+  // Load images on page load
+  window.onload = loadImages;
+
+  // Load new images when button is clicked
+  loadButton.addEventListener('click', loadImages);
+</script>
 </body>
 </html>
